@@ -12,6 +12,8 @@
 		523142061E95AC320082569A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 523142041E95AC320082569A /* Main.storyboard */; };
 		523142081E95AC320082569A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 523142071E95AC320082569A /* Assets.xcassets */; };
 		5231420B1E95AC320082569A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 523142091E95AC320082569A /* LaunchScreen.storyboard */; };
+		523142141E95AE300082569A /* CameraCaptureHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523142121E95AE300082569A /* CameraCaptureHelper.swift */; };
+		523142151E95AE300082569A /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523142131E95AE300082569A /* ImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		523142071E95AC320082569A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5231420A1E95AC320082569A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5231420C1E95AC320082569A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		523142121E95AE300082569A /* CameraCaptureHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraCaptureHelper.swift; sourceTree = "<group>"; };
+		523142131E95AE300082569A /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +59,8 @@
 			isa = PBXGroup;
 			children = (
 				523142001E95AC320082569A /* AppDelegate.swift */,
+				523142121E95AE300082569A /* CameraCaptureHelper.swift */,
+				523142131E95AE300082569A /* ImageView.swift */,
 				523142021E95AC320082569A /* ViewController.swift */,
 				523142041E95AC320082569A /* Main.storyboard */,
 				523142071E95AC320082569A /* Assets.xcassets */,
@@ -137,6 +143,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				523142151E95AE300082569A /* ImageView.swift in Sources */,
+				523142141E95AE300082569A /* CameraCaptureHelper.swift in Sources */,
 				523142031E95AC320082569A /* ViewController.swift in Sources */,
 				523142011E95AC320082569A /* AppDelegate.swift in Sources */,
 			);
@@ -304,6 +312,7 @@
 				523142111E95AC320082569A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
