@@ -71,10 +71,12 @@ extension CameraCaptureHelper: AVCaptureVideoDataOutputSampleBufferDelegate {
             return
         }
 
+        let copy = pixelBuffer.copy()
+        
         DispatchQueue.main.async
         {
             self.delegate?.newCameraImage(self,
-                image: CIImage(cvPixelBuffer: pixelBuffer))
+                image: CIImage(cvPixelBuffer: copy))
         }
         
     }
@@ -84,3 +86,38 @@ protocol CameraCaptureHelperDelegate: class
 {
     func newCameraImage(_ cameraCaptureHelper: CameraCaptureHelper, image: CIImage)
 }
+
+extension CVPixelBuffer {
+    func copy() -> CVPixelBuffer {
+        precondition(CFGetTypeID(self) == CVPixelBufferGetTypeID(), "copy on nonCVPixelBuffer")
+        
+        var _copy: CVPixelBuffer?
+        
+        CVPixelBufferCreate(nil,
+                            CVPixelBufferGetWidth(self),
+                            CVPixelBufferGetHeight(self),
+                            CVPixelBufferGetPixelFormatType(self),
+                            CVBufferGetAttachments(self, .shouldPropagate),
+                            &_copy)
+        
+        guard let copy = _copy else { fatalError() }
+        
+        CVPixelBufferLockBaseAddress(self, .readOnly)
+        CVPixelBufferLockBaseAddress(copy, CVPixelBufferLockFlags(rawValue: 0))
+        
+        for plane in 0..<CVPixelBufferGetPlaneCount(self) {
+            let dest = CVPixelBufferGetBaseAddressOfPlane(copy, plane)
+            let source = CVPixelBufferGetBaseAddressOfPlane(self, plane)
+            let height = CVPixelBufferGetHeightOfPlane(self, plane)
+            let bytesPerRow = CVPixelBufferGetBytesPerRowOfPlane(self, plane)
+            
+            memcpy(dest, source, height * bytesPerRow)
+        }
+        
+        CVPixelBufferUnlockBaseAddress(copy, CVPixelBufferLockFlags(rawValue: 0))
+        CVPixelBufferUnlockBaseAddress(self, .readOnly)
+        
+        return copy
+    }
+}
+
