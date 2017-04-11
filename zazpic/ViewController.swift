@@ -14,6 +14,9 @@ class ViewController: UIViewController, CameraCaptureHelperDelegate {
     
     var imageFrames: [CIImage] = []
     var enableRecording: Bool = false
+    var enablePlaying = false
+    var frameNum = 0
+    var nextFrame = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +36,22 @@ class ViewController: UIViewController, CameraCaptureHelperDelegate {
     }
 
     func newCameraImage(_ cameraCaptureHelper: CameraCaptureHelper, image: CIImage) {
+        if enablePlaying {
+            imageView.image = imageFrames[frameNum]
+            
+            frameNum += nextFrame
+            
+            if frameNum > 59 {
+                nextFrame = -1
+            }
+            
+            if frameNum == 0 {
+                nextFrame = 1
+            }
+            
+            return
+        }
+        
         imageView.image = image
         
         if enableRecording {
@@ -41,12 +60,20 @@ class ViewController: UIViewController, CameraCaptureHelperDelegate {
             if imageFrames.count > 60 {
                 enableRecording = false
             }
-            
-            print("Storing frame \(imageFrames.count)")
         }
     }
     
     @IBAction func startRec(_ sender: UIButton) {
         enableRecording = true
+    }
+    
+    @IBAction func startPlay(_ sender: UIButton) {
+        if enablePlaying {
+            enablePlaying = false
+        } else {
+            enablePlaying = true
+            frameNum = 0
+            nextFrame = 1
+        }
     }
 }
